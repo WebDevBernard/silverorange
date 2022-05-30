@@ -1,6 +1,18 @@
 import { useState, useEffect } from 'react';
 import { IProps } from '../store/interface';
+import originalFetch from 'isomorphic-fetch';
+import fetchBuilder from 'fetch-retry-ts';
 import * as _ from 'lodash';
+
+// https://www.npmjs.com/package/fetch-retry-ts
+// retry fetch request every 1second if 400 error up to 3 times
+const options = {
+  retries: 3,
+  retryDelay: 1000,
+  retryOn: [400],
+};
+
+const fetch = fetchBuilder(originalFetch, options);
 
 const useFetchRepos = () => {
   const [repos, setRepos] = useState<IProps[]>([]);
