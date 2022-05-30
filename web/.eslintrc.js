@@ -98,6 +98,7 @@ const newConfig = Object.assign({}, config, {
               },
             },
           ],
+          '@typescript-eslint/no-unused-vars': 'off',
           '@typescript-eslint/consistent-type-assertions': [
             'error',
             { assertionStyle: 'as' },
