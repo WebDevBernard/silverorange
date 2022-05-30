@@ -16,11 +16,10 @@ const fetch = fetchBuilder(originalFetch, options);
 
 const useFetchRepos = () => {
   const [selected, setSelected] = useState('');
-  const [commitInfo, setCommitInfo] = useState<Commit[]>([]);
-  const [repos, setRepos] = useState<Repo[]>([]);
+  const [commitInfo, setCommitInfo] = useState<Commit[]>();
+  const [repos, setRepos] = useState<Repo[]>();
 
   const handleChange = (url: string) => {
-    console.log(url);
     setSelected(url);
   };
   useEffect(() => {
@@ -49,13 +48,12 @@ const useFetchRepos = () => {
           throw new Error(`Response Status: ${response.status}`);
         }
         const responseData = await response.json();
-
-        console.log(responseData);
-
-        // need to figure out how to get max (most recent date with this function)
-        const mostRecentDate = 1111;
-
-        setCommitInfo(responseData);
+        // Lodash function gets the most recent date
+        const getMostRecent = _.maxBy(responseData, (o: Commit) => {
+          return o.commit.author.date;
+        });
+        console.log(getMostRecent);
+        // setCommitInfo(getMostRecent);
       } catch (error) {
         console.log(error);
       }
