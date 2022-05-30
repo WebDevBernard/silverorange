@@ -1,5 +1,3 @@
-// 2. Display a list of repositories. Include the repository name, description,
-// language, and forks count in the list.
 export interface Commit {
   sha: string;
   commit: {
