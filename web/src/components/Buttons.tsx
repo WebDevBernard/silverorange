@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { IProps } from '../store/interface';
+import { Repo } from '../store/interface';
 import { nanoid } from 'nanoid';
 
 interface ButtonProps {
@@ -23,15 +23,15 @@ export const ButtonWrapper: FC<ButtonProps> = (props) => {
   );
 };
 
-const RepoButtons: FC<{ repos: IProps[] }> = ({ repos }) => {
+const RepoButtons: FC<{ repos: Repo[] }> = ({ repos }) => {
   // https://stackoverflow.com/questions/60888184/return-array-of-names-from-array-of-objects
   const mappableButtons = repos
     .map((i) => i.language)
     .filter((x, i, a) => a.indexOf(x) === i);
   return (
     <div className="flex">
-      {mappableButtons.map((i) => {
-        return <ButtonWrapper key={nanoid()}>{i}</ButtonWrapper>;
+      {mappableButtons.map((languageName) => {
+        return <ButtonWrapper key={nanoid()}>{languageName}</ButtonWrapper>;
       })}
     </div>
   );
