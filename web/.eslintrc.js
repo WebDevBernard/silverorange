@@ -74,22 +74,22 @@ const newConfig = Object.assign({}, config, {
             { default: 'array-simple' },
           ],
           '@typescript-eslint/ban-types': 'error',
-          '@typescript-eslint/naming-convention': [
-            'error',
-            {
-              selector: ['variableLike', 'memberLike'],
-              format: ['camelCase'],
-            },
-            {
-              selector: ['property', 'variable'],
-              format: ['camelCase', 'UPPER_CASE'],
-            },
-            {
-              selector: ['function', 'parameter'],
-              format: ['camelCase', 'PascalCase'],
-            },
-            { selector: 'typeLike', format: ['PascalCase'] },
-          ],
+          // '@typescript-eslint/naming-convention': [
+          //   'error',
+          //   {
+          //     selector: ['variableLike', 'memberLike'],
+          //     format: ['camelCase'],
+          //   },
+          //   {
+          //     selector: ['property', 'variable'],
+          //     format: ['camelCase', 'UPPER_CASE'],
+          //   },
+          //   {
+          //     selector: ['function', 'parameter'],
+          //     format: ['camelCase', 'PascalCase'],
+          //   },
+          //   { selector: 'typeLike', format: ['PascalCase'] },
+          // ],
           '@typescript-eslint/explicit-member-accessibility': [
             'error',
             {
