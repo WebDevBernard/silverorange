@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { IProps } from '../store/interface';
+import { Repo, Commit } from '../store/interface';
 import originalFetch from 'isomorphic-fetch';
 import fetchBuilder from 'fetch-retry-ts';
 import * as _ from 'lodash';
@@ -15,9 +15,16 @@ const options = {
 const fetch = fetchBuilder(originalFetch, options);
 
 const useFetchRepos = () => {
-  const [repos, setRepos] = useState<IProps[]>([]);
+  const [selected, setSelected] = useState('');
+  const [commitInfo, setCommitInfo] = useState<Commit[]>([]);
+  const [repos, setRepos] = useState<Repo[]>([]);
+
+  const handleChange = (url: string) => {
+    console.log(url);
+    setSelected(url);
+  };
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchRepos = async () => {
       const url = 'http://localhost:4000/repos';
       try {
         const response = await fetch(url);
@@ -32,10 +39,32 @@ const useFetchRepos = () => {
         console.log(error);
       }
     };
-    fetchData();
-  }, []);
 
-  return { repos };
+    const fetchCommit = async () => {
+      const url = `${selected}/commits`;
+      try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+          throw new Error(`Response Status: ${response.status}`);
+        }
+        const responseData = await response.json();
+
+        console.log(responseData);
+
+        // need to figure out how to get max (most recent date with this function)
+        const mostRecentDate = 1111;
+
+        setCommitInfo(responseData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCommit();
+    fetchRepos();
+  }, [selected]);
+
+  return { repos, commitInfo, handleChange };
 };
 
 export default useFetchRepos;
