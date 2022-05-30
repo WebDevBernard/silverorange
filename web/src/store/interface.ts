@@ -1,5 +1,21 @@
 // 2. Display a list of repositories. Include the repository name, description,
 // language, and forks count in the list.
+export interface Commit {
+  sha: string;
+  commit: {
+    message: string;
+    author: {
+      name: string;
+      email: string;
+      date: string;
+    };
+  };
+  author: {
+    login: string;
+    avatar_url: string;
+    url: string;
+  };
+}
 export interface User {
   login: string;
   id: number;
@@ -19,7 +35,7 @@ export interface User {
   type: string;
   site_admin: boolean;
 }
-export interface IProps {
+export interface Repo {
   id: number;
   name: string;
   full_name: string;
