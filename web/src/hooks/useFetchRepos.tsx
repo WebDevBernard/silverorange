@@ -56,7 +56,7 @@ const useFetchRepos = () => {
           return o.commit.author.date;
         });
         setCommitInfo(getMostRecent);
-      } catch (error) {
+      } catch (error: any) {
         console.log(error);
       }
     };

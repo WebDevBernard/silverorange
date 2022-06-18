@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from 'react';
-import { nanoid } from 'nanoid';
 import { Commit } from '../store/interface';
 import { ButtonWrapper } from './Buttons';
 import Markdown from 'markdown-to-jsx';
@@ -19,33 +18,34 @@ const Repo: FC<{
         throw new Error('No Readme file');
       })
       .then((text) => setMd(text))
-      .catch((error) => {
+      .catch((error: Error) => {
         console.log(error);
       });
   }, [repoName]);
   return (
-    <div className="flex flex-col items-center">
-      <ButtonWrapper onClick={() => handleChange('', '')}>
+    <div className="m-12 space-y-12">
+      <ButtonWrapper className="" onClick={() => handleChange('', '')}>
         Go Back
       </ButtonWrapper>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Commit Date</th>
-            <th>Author</th>
-            <th>Message</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr key={nanoid()}>
-            <td>{commitInfo?.commit.author.date}</td>
-            <td>{commitInfo?.commit.author.name}</td>
-            <td>{commitInfo?.commit.message}</td>
-          </tr>
-        </tbody>
+      <table className="text-left border-black border-[1px] w-full border-separate rounded-md p-4">
+        <tr>
+          <th>Commit Date</th>
+          <td>
+            {new Date(
+              commitInfo?.commit.author.date || new Date()
+            ).toLocaleDateString('en-US')}
+          </td>
+        </tr>
+        <tr>
+          <th>Author</th>
+          <td>{commitInfo?.commit.author.name}</td>
+        </tr>{' '}
+        <tr>
+          <th>Message</th>
+          <td>{commitInfo?.commit.message}</td>
+        </tr>
       </table>
-      <article className="prose lg:prose-xl">
+      <article className="prose prose-sm">
         <Markdown>{md}</Markdown>
       </article>
     </div>

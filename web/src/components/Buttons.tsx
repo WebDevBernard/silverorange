@@ -16,7 +16,7 @@ export const ButtonWrapper: FC<ButtonProps> = (props) => {
       type={'submit'}
       onClick={props.onClick}
       disabled={props.disabled}
-      className={`${props.className} bg-black rounded-sm text-white p-1 mx-2`}
+      className={`${props.className} bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center mx-2`}
     >
       {props.children}
     </button>
@@ -33,7 +33,7 @@ const RepoButtons: FC<{
     .map((i) => i.language)
     .filter((x, i, a) => a.indexOf(x) === i);
   return (
-    <div className="flex">
+    <div>
       {mappableButtons.map((languageName) => {
         return (
           <ButtonWrapper

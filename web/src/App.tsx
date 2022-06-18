@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import useFetchRepos from './hooks/useFetchRepos';
 import RepoButtons from './components/Buttons';
-import { Repo, Commit } from './store/interface';
+import { Repo } from './store/interface';
 import List from './components/List';
 import Details from './components/Details';
+import Loading from './components/Loading';
 
 export function App() {
   const { repos, handleChange, selected, commitInfo, repoName } =
@@ -38,13 +39,13 @@ export function App() {
   }
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="m-12 space-y-12">
       <RepoButtons
         filterRepos={filterRepos}
         repos={repos}
         setButtons={setSortByLanguages}
       />
-
+      {!repos && Loading}
       <List repos={sortByLanguages} handleChange={handleChange} />
     </div>
   );
