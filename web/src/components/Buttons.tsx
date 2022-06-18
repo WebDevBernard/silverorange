@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { Repo } from '../store/interface';
 import { nanoid } from 'nanoid';
 
@@ -16,14 +16,18 @@ export const ButtonWrapper: FC<ButtonProps> = (props) => {
       type={'submit'}
       onClick={props.onClick}
       disabled={props.disabled}
-      className={props.className}
+      className={`${props.className} bg-black rounded-sm text-white p-1 mx-2`}
     >
       {props.children}
     </button>
   );
 };
 
-const RepoButtons: FC<{ repos: Repo[] }> = ({ repos }) => {
+const RepoButtons: FC<{
+  repos: Repo[];
+  filterRepos: (value: string) => void;
+  setItem: (value: Repo[]) => void;
+}> = ({ repos, filterRepos, setItem }) => {
   // https://stackoverflow.com/questions/60888184/return-array-of-names-from-array-of-objects
   const mappableButtons = repos
     .map((i) => i.language)
@@ -31,8 +35,16 @@ const RepoButtons: FC<{ repos: Repo[] }> = ({ repos }) => {
   return (
     <div className="flex">
       {mappableButtons.map((languageName) => {
-        return <ButtonWrapper key={nanoid()}>{languageName}</ButtonWrapper>;
+        return (
+          <ButtonWrapper
+            onClick={() => filterRepos(languageName)}
+            key={nanoid()}
+          >
+            {languageName}
+          </ButtonWrapper>
+        );
       })}
+      <ButtonWrapper onClick={() => setItem(repos)}>Show All</ButtonWrapper>
     </div>
   );
 };
