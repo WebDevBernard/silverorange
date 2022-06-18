@@ -16,8 +16,8 @@ const fetch = fetchBuilder(originalFetch, options);
 
 const useFetchRepos = () => {
   const [selected, setSelected] = useState('');
-  const [commitInfo, setCommitInfo] = useState<Commit[]>();
-  const [repos, setRepos] = useState<Repo[]>();
+  const [commitInfo, setCommitInfo] = useState<Commit[]>([]);
+  const [repos, setRepos] = useState<Repo[]>([]);
 
   const handleChange = (url: string) => {
     setSelected(url);
@@ -48,7 +48,7 @@ const useFetchRepos = () => {
           throw new Error(`Response Status: ${response.status}`);
         }
         const responseData = await response.json();
-        // Lodash function gets the most recent date
+        // lodash function gets the most recent date
         const getMostRecent = _.maxBy(responseData, (o: Commit) => {
           return o.commit.author.date;
         });
