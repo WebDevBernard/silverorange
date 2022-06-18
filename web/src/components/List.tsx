@@ -7,9 +7,8 @@ import { Repo, Commit } from '../store/interface';
 
 const List: FC<{
   repos: Repo[];
-  commitInfo: Commit[];
   handleChange: (url: string) => void;
-}> = ({ repos, commitInfo, handleChange }) => {
+}> = ({ repos, handleChange }) => {
   return (
     <>
       <table>
