@@ -16,12 +16,13 @@ const fetch = fetchBuilder(originalFetch, options);
 
 const useFetchRepos = () => {
   const [selected, setSelected] = useState('');
-  const [commitInfo, setCommitInfo] = useState<Commit[]>([]);
+  const [commitInfo, setCommitInfo] = useState<Commit>();
   const [repos, setRepos] = useState<Repo[]>([]);
 
   const handleChange = (url: string) => {
     setSelected(url);
   };
+
   useEffect(() => {
     const fetchRepos = async () => {
       const url = 'http://localhost:4000/repos';
@@ -52,8 +53,7 @@ const useFetchRepos = () => {
         const getMostRecent = _.maxBy(responseData, (o: Commit) => {
           return o.commit.author.date;
         });
-        console.log(getMostRecent);
-        // setCommitInfo(getMostRecent);
+        setCommitInfo(getMostRecent);
       } catch (error) {
         console.log(error);
       }
@@ -62,7 +62,7 @@ const useFetchRepos = () => {
     fetchRepos();
   }, [selected]);
 
-  return { repos, commitInfo, handleChange };
+  return { repos, commitInfo, handleChange, selected };
 };
 
 export default useFetchRepos;
