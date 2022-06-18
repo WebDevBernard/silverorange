@@ -6,7 +6,8 @@ import List from './components/List';
 import Details from './components/Details';
 
 export function App() {
-  const { repos, handleChange, selected, commitInfo } = useFetchRepos();
+  const { repos, handleChange, selected, commitInfo, repoName } =
+    useFetchRepos();
   // https://www.freecodecamp.org/news/how-to-make-a-filter-component-in-react/
   // filters based on language type
   const [sortByLanguages, setSortByLanguages] = useState<Repo[]>(repos);
@@ -27,7 +28,13 @@ export function App() {
   // https://stackoverflow.com/questions/62517789/how-to-render-a-component-on-click-on-list-item-to-show-its-detail
 
   if (selected) {
-    return <Details commitInfo={commitInfo} handleChange={handleChange} />;
+    return (
+      <Details
+        commitInfo={commitInfo}
+        handleChange={handleChange}
+        repoName={repoName}
+      />
+    );
   }
 
   return (

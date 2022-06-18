@@ -7,7 +7,7 @@ import { Repo, Commit } from '../store/interface';
 
 const List: FC<{
   repos: Repo[];
-  handleChange: (url: string) => void;
+  handleChange: (fullName: string, url: string) => void;
 }> = ({ repos, handleChange }) => {
   return (
     <>
@@ -24,7 +24,10 @@ const List: FC<{
         <tbody>
           {repos.map((repo) => {
             return (
-              <tr key={nanoid()} onClick={() => handleChange(repo.url)}>
+              <tr
+                key={nanoid()}
+                onClick={() => handleChange(repo.full_name, repo.url)}
+              >
                 <td>{repo.name}</td>
                 <td>{repo.description}</td>
                 <td>{repo.language}</td>

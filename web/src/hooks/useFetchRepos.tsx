@@ -16,10 +16,12 @@ const fetch = fetchBuilder(originalFetch, options);
 
 const useFetchRepos = () => {
   const [selected, setSelected] = useState('');
+  const [repoName, setRepoName] = useState('');
   const [commitInfo, setCommitInfo] = useState<Commit>();
   const [repos, setRepos] = useState<Repo[]>([]);
 
-  const handleChange = (url: string) => {
+  const handleChange = (fullName: string, url: string) => {
+    setRepoName(fullName);
     setSelected(url);
   };
 
@@ -62,7 +64,7 @@ const useFetchRepos = () => {
     fetchRepos();
   }, [selected]);
 
-  return { repos, commitInfo, handleChange, selected };
+  return { repos, commitInfo, handleChange, selected, repoName };
 };
 
 export default useFetchRepos;
