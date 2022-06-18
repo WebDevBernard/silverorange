@@ -26,8 +26,8 @@ export const ButtonWrapper: FC<ButtonProps> = (props) => {
 const RepoButtons: FC<{
   repos: Repo[];
   filterRepos: (value: string) => void;
-  setItem: (value: Repo[]) => void;
-}> = ({ repos, filterRepos, setItem }) => {
+  setButtons: (value: Repo[]) => void;
+}> = ({ repos, filterRepos, setButtons }) => {
   // https://stackoverflow.com/questions/60888184/return-array-of-names-from-array-of-objects
   const mappableButtons = repos
     .map((i) => i.language)
@@ -44,7 +44,7 @@ const RepoButtons: FC<{
           </ButtonWrapper>
         );
       })}
-      <ButtonWrapper onClick={() => setItem(repos)}>Show All</ButtonWrapper>
+      <ButtonWrapper onClick={() => setButtons(repos)}>Show All</ButtonWrapper>
     </div>
   );
 };
